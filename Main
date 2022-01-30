@@ -1,0 +1,75 @@
+using System;
+using System.Globalization;
+//credits to Programming is Fun http://programmingisfun.com/simple-csharp-madlib-part-one/
+
+namespace Game
+{
+    static class Madlib
+    {
+        static string[] Words = { "creature", "luminous", "ghastly", "spectral", "countryman", "farrier", "farmer", "dreadful", "apparition", "hellhound" };
+        static string[] Prompts = { "noun", "adjective", "adjective", "adjective", "occupation", "occupation", "occupation", "adjective", "noun", "noun" };
+        static string Story;
+        static string GameTitle;
+
+        static void Start()
+        {
+            //Set window bar title
+            Console.Title = "Make a Madlib";
+
+            Console.WriteLine("//Madlib\\ \n \nWelcome friend, this is a crazy Madlib! \nI will ask you to write down some words and then I will write a story for you \n");
+        }
+
+        static void GetWords()
+        {
+            for (int i = 0; i < Words.Length; i++)
+            {
+                Console.Write("Please enter a/an " + Prompts[i] + ": ");
+                Words[i] = Console.ReadLine();
+            }
+
+            Console.Clear();
+        }
+
+        static void WriteStory()
+        {
+            //Concatenate strings to make a title
+            GameTitle = "The " + Words[1] + " " + Words[2] + " " + Words[0];
+
+            //So we can capitalize the words in our title
+            TextInfo TitleCase = new CultureInfo("en-US", false).TextInfo;
+            GameTitle = TitleCase.ToTitleCase(GameTitle);
+
+            //Write the title to the console window
+            Console.WriteLine(GameTitle);
+
+            //change the title of the application window
+            Console.Title = GameTitle;
+
+            //write out story
+            Story = "They all agreed that it was a huge {0}, {1}, {2}, and {3}.\nI have cross-examined these men, one of them a hard-headed {4},\none a {5}, and one a moorland {6}, who all tell the same story\nof this {7} {8}, exactly corresponding to the {9} of the legend.";
+            Console.WriteLine(Story, Words[0], Words[1], Words[2], Words[3], Words[4], Words[5], Words[6], Words[7], Words[8], Words[9]);
+        }
+        static void End()
+        {
+            //keep window open and prompt for exit
+            Console.WriteLine("Press enter to exit");
+            Console.ReadKey();
+        }
+        public static void Run()
+        {
+            Start();
+            GetWords();
+            WriteStory();
+            End();
+        }
+
+
+        class Program
+        {
+            static void Main()
+            {
+                Madlib.Run();
+            }
+        }
+    }
+}
